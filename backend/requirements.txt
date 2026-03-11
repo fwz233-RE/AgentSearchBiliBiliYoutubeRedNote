@@ -1,0 +1,8 @@
+sqlalchemy
+aiosqlite
+yt-dlp
+httpx
+pydantic
+xhshow
+dashscope
+pyinstaller

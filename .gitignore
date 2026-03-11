@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Data and configurations
+data/
+*.sqlite
+*.db
+*.mp3
+*.m4a
+*.txt
+*.json
+!backend/requirements.txt
+!README.md
+!build.py
+!cli.py
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
