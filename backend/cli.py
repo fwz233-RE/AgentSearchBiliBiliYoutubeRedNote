@@ -35,7 +35,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-from config import get_config, set_config, get_all_config, _ALL_KEYS, DATA_DIR
+from config import get_config, set_config, get_all_config, _ALL_KEYS, DATA_DIR, SUBTITLES_DIR
 from database import init_db, close_db, async_session, Content, ScrapeRecord, ContentImage, Task
 
 
@@ -336,6 +336,12 @@ async def _do_scrape(urls: list[str], auto_transcribe: bool, auto_tag: bool):
                 _info(f"字幕来源: {sc.subtitle_source}")
                 preview = sc.subtitle_text[:200].replace('\n', ' ')
                 _info(f"字幕预览: {preview}...")
+                
+                # 计算字幕文件路径并显示
+                sub_filename = f"{platform}_{sc.platform_id}.txt"
+                sub_path = SUBTITLES_DIR / sub_filename
+                if sub_path.exists():
+                    _info(f"字幕文件: {sub_path}")
 
             print()
 
