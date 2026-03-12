@@ -94,7 +94,7 @@ def _run(coro):
 
 # ── 搜索命令 ──────────────────────────────────────────────────────
 
-async def _do_search(platform: str, query: str, page: int, page_size: int):
+async def _do_search(platform: str, query: str, page: int, page_size: int, fmt: Optional[str] = None, output_file: Optional[str] = None):
     await init_db()
 
     from scrapers.youtube import youtube_search
@@ -132,11 +132,38 @@ async def _do_search(platform: str, query: str, page: int, page_size: int):
 
     _success(f"共找到 {len(results)} 条结果 (第 {page} 页)")
 
+    if output_file:
+        items = []
+        for r in results:
+            items.append({
+                "platform": r.platform,
+                "platform_id": r.platform_id,
+                "title": r.title,
+                "author": r.author,
+                "url": r.url,
+                "thumbnail_url": r.thumbnail_url,
+                "duration": r.duration,
+                "views": r.views,
+                "publish_time": r.publish_time,
+            })
+        if fmt == "json":
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(items, f, ensure_ascii=False, indent=2)
+            _success(f"已将搜索结果导出到 {output_file}")
+        elif fmt == "csv":
+            import csv
+            with open(output_file, 'w', encoding='utf-8-sig', newline='') as f:
+                if items:
+                    writer = csv.DictWriter(f, fieldnames=items[0].keys())
+                    writer.writeheader()
+                    writer.writerows(items)
+            _success(f"已将搜索结果导出到 {output_file}")
+
 
 def cmd_search(args):
     query_str = " ".join(args.query) if isinstance(args.query, list) else args.query
     query_str = query_str.strip('"').strip("'")
-    _run(_do_search(args.platform, query_str, args.page, args.page_size))
+    _run(_do_search(args.platform, query_str, args.page, args.page_size, args.format, args.output))
 
 
 # ── 抓取命令 ──────────────────────────────────────────────────────
@@ -744,6 +771,8 @@ def main():
     p_search.add_argument("query", nargs="+", help="搜索关键词")
     p_search.add_argument("--page", type=int, default=1, help="页码 (默认: 1)")
     p_search.add_argument("--page-size", type=int, default=20, help="每页条数 (默认: 20)")
+    p_search.add_argument("--format", "-F", choices=["json", "csv"], default="json", help="导出格式 (默认: json，仅搭配 --output 时有效)")
+    p_search.add_argument("--output", "-o", help="输出文件路径 (将搜索结果导出到指定文件)")
     p_search.set_defaults(func=cmd_search)
 
     # scrape 抓取

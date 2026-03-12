@@ -27,21 +27,24 @@ description: 多平台内容聚合抓取工具（支持 YouTube、Bilibili、小
 *   `content-hub.exe search youtube <关键词>`  (例如: `content-hub.exe search youtube MacBook Neo`)
 *   `content-hub.exe search bilibili <关键词> --page 2`
 *   `content-hub.exe search xiaohongshu <关键词> --page-size 10`
+*   **导出搜索结果数据**：`content-hub.exe search youtube <关键词> --format json --output search_results.json`（你可以通过指定 `--output` 直接将当前搜索取得的数据转存为文件供你查看分析）
 
 ### 2. 内容抓取 (Scrape)
-获取指定 URL 的元数据（并自动分析字幕/打标）：
+获取指定 URL 的元数据（存入本地数据库，并自动分析字幕/打标）：
 *   单链接：`content-hub.exe scrape <URL>`
 *   多链接：`content-hub.exe scrape <URL1> <URL2>`
 *   不需要转写或打标：`content-hub.exe scrape <URL> --no-transcribe --no-tag`
 
 ### 3. 数据管理查看 (List & Show)
-*   查看全部数据：`content-hub.exe list`
+**（注：此处仅用于查看已通过 `scrape` 指令存入数据库的详情数据！不包含仅 `search` 过的数据）**
+*   查看全部已抓取数据：`content-hub.exe list`
 *   按平台筛选：`content-hub.exe list --platform youtube`
 *   查看特定 ID 的详情（获取正文/完整信息）：`content-hub.exe show <ID>`
 *   附带完整字幕查看：`content-hub.exe show <ID> --subtitle`
 
 ### 4. 数据导出与维护 (Export & Maintain)
-*   导出 JSON/CSV 报表：`content-hub.exe export --format json --output <文件名>.json`
+**（注：此处也是仅用于导出已通过 `scrape` 抓取并存库的详情！如果想导出单纯的搜索结果，请使用 `search ... --output` 指令）**
+*   导出抓取的 JSON/CSV 报表：`content-hub.exe export --format json --output <文件名>.json`
 *   提取和保存字幕：`content-hub.exe subtitle <ID> --output <文件名>.txt`
 *   刷新旧数据的各项指标（播放量/点赞等）：`content-hub.exe refresh <ID>`
 *   删除无用数据：`content-hub.exe delete <ID>`

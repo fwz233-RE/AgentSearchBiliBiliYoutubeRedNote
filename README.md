@@ -106,9 +106,13 @@ content-hub search bilibili 机器学习 --page 2
 
 # 搜索小红书 (注意: 不要给关键词加引号)
 content-hub search xiaohongshu 旅行攻略 --page-size 10
+
+# 导出搜索结果 (仅搜索并保存，不抓取详情，支持 json/csv)
+content-hub search youtube Python 教程 --output search.json
 ```
 
 ### 抓取内容
+将搜索等得到的指定 URL 的详细内容、元数据与字幕抓取并保存至本地数据库。
 
 ```bash
 # 抓取单个 URL
@@ -127,13 +131,14 @@ content-hub scrape https://www.youtube.com/watch?v=xxxxx --no-transcribe
 content-hub scrape https://www.xiaohongshu.com/explore/xxxxx --no-tag
 ```
 
-### 查看内容列表
+### 查看已抓取内容列表
+⚠️ **注意**：`list` 命令与后面的 `export` 命令仅用于查看与导出通过 `scrape` 命令真正抓取并存库的数据，**不会显示没被抓取过的搜索结果**。
 
 ```bash
-# 查看所有内容
+# 查看所有已抓取内容
 content-hub list
 
-# 按平台筛选
+# 按平台筛选已抓取内容
 content-hub list --platform youtube
 content-hub list --platform bilibili
 content-hub list --platform xiaohongshu
