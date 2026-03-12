@@ -33,7 +33,7 @@ class ScrapedContent:
     content_type: str = "video"  # video | image_text
     text_content: str = ""
     subtitle_text: str = ""
-    subtitle_source: str = "none"  # external | transcribed | none
+    subtitle_source: str = "none"  # external | ai_generated | transcribed | none
     thumbnail_url: str = ""
     metrics: ScrapedMetrics = field(default_factory=ScrapedMetrics)
     images: list[ScrapedImage] = field(default_factory=list)

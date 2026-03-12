@@ -195,7 +195,7 @@ async def _do_scrape(urls: list[str], auto_transcribe: bool, auto_tag: bool):
                     traceback.print_exc()
 
             # 3. 语音转写
-            if auto_transcribe and sc.content_type == "video" and sc.subtitle_source != "external" and audio_path:
+            if auto_transcribe and sc.content_type == "video" and sc.subtitle_source not in ("external", "ai_generated") and audio_path:
                 _info("语音转写中...")
                 try:
                     text = await transcribe_audio(audio_path)
