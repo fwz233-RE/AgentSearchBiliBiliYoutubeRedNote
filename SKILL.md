@@ -35,23 +35,6 @@ description: 多平台内容聚合抓取工具（支持 YouTube、Bilibili、小
 *   多链接：`content-hub.exe scrape <URL1> <URL2>`
 *   不需要转写或打标：`content-hub.exe scrape <URL> --no-transcribe --no-tag`
 
-### 3. 数据管理查看 (List & Show)
-**（注：此处仅用于查看已通过 `scrape` 指令存入数据库的详情数据！不包含仅 `search` 过的数据）**
-*   查看全部已抓取数据：`content-hub.exe list`
-*   按平台筛选：`content-hub.exe list --platform youtube`
-*   查看特定 ID 的详情（获取正文/完整信息）：`content-hub.exe show <ID>`
-*   附带完整字幕查看：`content-hub.exe show <ID> --subtitle`
-
-### 4. 数据导出与维护 (Export & Maintain)
-**（注：此处也是仅用于导出已通过 `scrape` 抓取并存库的详情！如果想导出单纯的搜索结果，请使用 `search ... --output` 指令）**
-*   导出抓取的 JSON/CSV 报表：`content-hub.exe export --format json --output <文件名>.json`
-*   提取和保存字幕：`content-hub.exe subtitle <ID> --output <文件名>.txt`
-*   刷新旧数据的各项指标（播放量/点赞等）：`content-hub.exe refresh <ID>`
-*   删除无用数据：`content-hub.exe delete <ID>`
-
-### 5. 音频管理 (Audio)
-*   管理下载的播客音频：`content-hub.exe audio list`
-
 ## 💡 使用小贴士 (Tips for Agent)
 1. 涉及文件输出时，务必使用明确的相对或绝对路径，保证自己能读取到。
 2. 配置参数通过 `content-hub.exe config set <KEY> <VALUE>` 自动设置。如果没有指定 API Key 或 Cookie，仍然可以探索受限的基础能力。
