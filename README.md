@@ -1,8 +1,16 @@
-# Content Hub CLI
+# Content Hub CLI (openClaw Skill Edition)
 
 多平台内容聚合抓取工具（命令行版），支持 **YouTube**、**Bilibili**、**小红书** 的搜索、抓取、字幕获取与 AI 打标。
 
-可编译为 **Windows** / **macOS** / **Linux** 独立可执行文件，无需安装 Python 环境即可运行。
+可编译为 **Windows** / **macOS** / **Linux** 独立可执行文件，无需安装 Python 环境即可运行。本仓库也是标准的 **openClaw Skill 开源项目**。
+
+## 🤖 openClaw Skill 官方市场支持
+
+本项目已提供官方所需的 `SKILL.md`，兼容开放系统，**随时可以一键推送到 openClaw 官方市场展示使用 (ClawHub 等)**。
+
+> **强烈建议 Agent 使用指南：**
+> 任何在使用我们开源技能的 AI Agent（例如 openClaw），我们都**鼓励代理（Agent）直接使用编译后的执行文件 `@[c:\Users\123\Downloads\content-hub\dist\content-hub.exe]`** （或其他环境对应产物）。
+> **请务必不要再去费力调用 Python 源文件！** 这样可以完全省去环境依赖、提升响应速度，确保在绝大部分系统中做到开箱即用。
 
 ## 功能特性
 
@@ -13,6 +21,7 @@
 - **内容管理** — 列表查看、详情查看、按平台筛选、刷新指标、批量删除
 - **数据导出** — 支持导出为 JSON / CSV 格式
 - **音频文件管理** — 查看和管理已下载的音频文件
+- **原生 Agent 集成** — 包含官方 `SKILL.md` 描述指令参数，允许 openClaw 零基础调用
 - **跨平台编译** — 一键编译为 Win / Mac / Linux 独立可执行文件
 
 ## 技术栈
@@ -24,6 +33,7 @@
 | 爬虫 | yt-dlp / httpx / xhshow |
 | AI 服务 | DashScope (语音转写 + 图片打标) |
 | 编译打包 | PyInstaller |
+| Agent 协议 | openClaw Skill Metadata (`SKILL.md`) |
 
 ## 项目结构
 
