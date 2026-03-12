@@ -28,10 +28,10 @@ else:
 
 if sys.platform == "win32":
     try:
-        if sys.stdout and sys.stdout.encoding.lower() != "utf-8":
-            sys.stdout.reconfigure(encoding="utf-8")
-        if sys.stderr and sys.stderr.encoding.lower() != "utf-8":
-            sys.stderr.reconfigure(encoding="utf-8")
+        if sys.stdout and getattr(sys.stdout, 'encoding', None):
+            sys.stdout.reconfigure(encoding=sys.stdout.encoding, errors="replace")
+        if sys.stderr and getattr(sys.stderr, 'encoding', None):
+            sys.stderr.reconfigure(encoding=sys.stderr.encoding, errors="replace")
     except Exception:
         pass
 
