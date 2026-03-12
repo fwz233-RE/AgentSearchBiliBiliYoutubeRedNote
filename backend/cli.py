@@ -591,7 +591,22 @@ def cmd_config(args):
             _error("请提供 key 和 value 参数")
             return
         
-        value_str = " ".join(args.value) if isinstance(args.value, list) else args.value
+        # 支持从文件读取配置值 (@path/to/file)
+        if len(args.value) == 1 and args.value[0].startswith("@"):
+            file_path = Path(args.value[0][1:])
+            if file_path.exists():
+                try:
+                    value_str = file_path.read_text(encoding='utf-8')
+                    _info(f"从文件读取配置值: {file_path}")
+                except Exception as e:
+                    _error(f"读取文件失败: {e}")
+                    return
+            else:
+                _error(f"文件不存在: {file_path}")
+                return
+        else:
+            value_str = " ".join(args.value) if isinstance(args.value, list) else args.value
+        
         if args.key not in _ALL_KEYS:
             _error(f"未知配置项: {args.key}")
             _info(f"支持的配置项: {', '.join(_ALL_KEYS)}")
