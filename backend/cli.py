@@ -26,6 +26,15 @@ if getattr(sys, 'frozen', False):
 else:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+if sys.platform == "win32":
+    try:
+        if sys.stdout and sys.stdout.encoding.lower() != "utf-8":
+            sys.stdout.reconfigure(encoding="utf-8")
+        if sys.stderr and sys.stderr.encoding.lower() != "utf-8":
+            sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 from config import get_config, set_config, get_all_config, _ALL_KEYS, DATA_DIR
 from database import init_db, close_db, async_session, Content, ScrapeRecord, ContentImage, Task
 
