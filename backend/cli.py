@@ -193,7 +193,7 @@ def _detect_platform(url: str) -> str:
     return ""
 
 
-async def _do_scrape(urls: list[str], auto_transcribe: bool, auto_tag: bool):
+async def _do_scrape(urls: list[str], auto_transcribe: bool, auto_tag: bool, output_dir: Optional[str] = None):
     await init_db()
 
     from scrapers.youtube import youtube_scrape, youtube_download_audio
@@ -357,6 +357,17 @@ async def _do_scrape(urls: list[str], auto_transcribe: bool, auto_tag: bool):
                 sub_path = SUBTITLES_DIR / sub_filename
                 if sub_path.exists():
                     _info(f"字幕文件: {sub_path}")
+                    
+                    # 如果指定了输出目录，则额外导出到该目录
+                    if output_dir:
+                        try:
+                            target_dir = Path(output_dir)
+                            target_dir.mkdir(parents=True, exist_ok=True)
+                            target_file = target_dir / sub_filename
+                            target_file.write_text(sub_path.read_text(encoding='utf-8'), encoding='utf-8')
+                            _success(f"已额外导出字幕到: {target_file}")
+                        except Exception as e:
+                            _warn(f"额外导出字幕失败: {e}")
 
             print()
 
@@ -375,7 +386,7 @@ def cmd_scrape(args):
     if not urls:
         _error("请提供至少一个 URL")
         return
-    _run(_do_scrape(urls, not args.no_transcribe, not args.no_tag))
+    _run(_do_scrape(urls, not args.no_transcribe, not args.no_tag, args.output_dir))
 
 
 # ── 内容列表命令 ──────────────────────────────────────────────────
@@ -819,6 +830,7 @@ def main():
     p_scrape.add_argument("--file", "-f", help="从文件读取 URL 列表 (每行一个)")
     p_scrape.add_argument("--no-transcribe", action="store_true", help="不进行语音转写")
     p_scrape.add_argument("--no-tag", action="store_true", help="不进行图片 AI 打标")
+    p_scrape.add_argument("--output-dir", "-o", help="额外导出字幕到的目录")
     p_scrape.set_defaults(func=cmd_scrape)
 
     # list 列表
