@@ -581,14 +581,16 @@ def cmd_config(args):
         _info(f"配置文件: {DATA_DIR / 'config.json'}")
 
     elif args.action == "set":
-        if not args.key or args.value is None:
+        if not args.key or not args.value:
             _error("请提供 key 和 value 参数")
             return
+        
+        value_str = " ".join(args.value) if isinstance(args.value, list) else args.value
         if args.key not in _ALL_KEYS:
             _error(f"未知配置项: {args.key}")
             _info(f"支持的配置项: {', '.join(_ALL_KEYS)}")
             return
-        set_config(args.key, args.value)
+        set_config(args.key, value_str)
         _success(f"已设置 {args.key}")
 
     elif args.action == "get":
@@ -810,7 +812,7 @@ def main():
     p_config = subparsers.add_parser("config", help="管理配置")
     p_config.add_argument("action", choices=["list", "set", "get"], help="操作: list/set/get")
     p_config.add_argument("key", nargs="?", help="配置项名称")
-    p_config.add_argument("value", nargs="?", help="配置项值 (set 时需要)")
+    p_config.add_argument("value", nargs="*", help="配置项值 (set 时需要)")
     p_config.set_defaults(func=cmd_config)
 
     # export 导出
