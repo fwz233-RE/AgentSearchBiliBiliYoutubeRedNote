@@ -87,9 +87,18 @@ def _run(coro):
     async def _wrapper():
         try:
             return await coro
+        except Exception:
+            _error("程序执行出错:")
+            traceback.print_exc()
+            sys.exit(1)
         finally:
             await close_db()
-    return asyncio.run(_wrapper())
+    
+    try:
+        return asyncio.run(_wrapper())
+    except Exception:
+        traceback.print_exc()
+        sys.exit(1)
 
 
 # ── 搜索命令 ──────────────────────────────────────────────────────
