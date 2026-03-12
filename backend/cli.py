@@ -134,7 +134,9 @@ async def _do_search(platform: str, query: str, page: int, page_size: int):
 
 
 def cmd_search(args):
-    _run(_do_search(args.platform, args.query, args.page, args.page_size))
+    query_str = " ".join(args.query) if isinstance(args.query, list) else args.query
+    query_str = query_str.strip('"').strip("'")
+    _run(_do_search(args.platform, query_str, args.page, args.page_size))
 
 
 # ── 抓取命令 ──────────────────────────────────────────────────────
@@ -739,7 +741,7 @@ def main():
     # search 搜索
     p_search = subparsers.add_parser("search", help="搜索内容")
     p_search.add_argument("platform", choices=["youtube", "bilibili", "xiaohongshu"], help="搜索平台")
-    p_search.add_argument("query", help="搜索关键词")
+    p_search.add_argument("query", nargs="+", help="搜索关键词")
     p_search.add_argument("--page", type=int, default=1, help="页码 (默认: 1)")
     p_search.add_argument("--page-size", type=int, default=20, help="每页条数 (默认: 20)")
     p_search.set_defaults(func=cmd_search)
