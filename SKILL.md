@@ -26,16 +26,14 @@ description: 多平台内容聚合抓取工具（支持 YouTube、Bilibili、小
 
 ### 1. 搜索与发现 (Search)
 按关键词跨平台搜索内容（**注意：搜索多词关键词时，直接输入即可，请不要加双引号或单引号，工具会自动识别**）：
-*   `content-hub.exe search youtube <关键词>`  (例如: `content-hub.exe search youtube MacBook Neo`)
-*   `content-hub.exe search bilibili <关键词> --page 2`
-*   `content-hub.exe search xiaohongshu <关键词> --page-size 10`
+*   `content-hub.exe search youtube <关键词> --format json --output search_results.json`  (例如: `content-hub.exe search youtube MacBook Neo --format json --output search_results.json`)
+*   `content-hub.exe search bilibili <关键词> --format json --output search_results.json`
+*   `content-hub.exe search xiaohongshu <关键词> --format json --output search_results.json`
 *   **导出搜索结果数据**：`content-hub.exe search youtube <关键词> --format json --output search_results.json`（你可以通过指定 `--output` 直接将当前搜索取得的数据转存为文件供你查看分析）
 
 ### 2. 内容抓取 (Scrape)
-获取指定 URL 的元数据（存入本地数据库，并自动分析字幕/打标）：
-*   单链接：`content-hub.exe scrape <URL>`
-*   多链接：`content-hub.exe scrape <URL1> <URL2>`
-*   不需要转写或打标：`content-hub.exe scrape <URL> --no-transcribe --no-tag`
+获取指定 URL 的元数据（存入本地数据库，并自动分析字幕/打标，导出字幕文件到指定位置）：
+*   单链接：`content-hub.exe scrape <URL> --output-dir <输出目录>`
 
 ## 💡 使用小贴士 (Tips for Agent)
 1. 涉及文件输出时，务必使用明确的相对或绝对路径，保证自己能读取到。
