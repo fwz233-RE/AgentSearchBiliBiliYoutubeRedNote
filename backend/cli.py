@@ -119,16 +119,22 @@ async def _do_search(platform: str, query: str, page: int, page_size: int, fmt: 
         return
 
     for i, r in enumerate(results, 1):
-        print(f"  {_c(str(i), Colors.YELLOW)}. {_c(r.title, Colors.BOLD)}")
-        if r.author:
-            print(f"     {_c('作者:', Colors.DIM)} {r.author}")
-        if r.url:
-            print(f"     {_c('链接:', Colors.DIM)} {r.url}")
-        if r.duration:
-            print(f"     {_c('时长:', Colors.DIM)} {r.duration}")
-        if r.views:
-            print(f"     {_c('播放:', Colors.DIM)} {r.views:,}")
-        print()
+        try:
+            print(f"  {_c(str(i), Colors.YELLOW)}. {_c(r.title or '(无标题)', Colors.BOLD)}")
+            if r.author:
+                print(f"     {_c('作者:', Colors.DIM)} {r.author}")
+            if r.url:
+                print(f"     {_c('链接:', Colors.DIM)} {r.url}")
+            if r.duration:
+                print(f"     {_c('时长:', Colors.DIM)} {r.duration}")
+            if r.views is not None:
+                try:
+                    print(f"     {_c('播放:', Colors.DIM)} {int(r.views):,}")
+                except (ValueError, TypeError):
+                    print(f"     {_c('播放:', Colors.DIM)} {r.views}")
+            print()
+        except Exception:
+            continue
 
     _success(f"共找到 {len(results)} 条结果 (第 {page} 页)")
 
