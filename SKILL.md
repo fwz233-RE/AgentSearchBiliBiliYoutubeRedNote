@@ -5,7 +5,7 @@ description: 多平台内容聚合抓取工具（支持 YouTube、Bilibili、小
 
 # Content Hub OpenClaw Skill 
 
-这是一个适用于 openClaw Agent 的官方技能说明文件（Skill Metadata）。通过此技能，Agent 可以自动化操作各大内容平台的数据。
+这是一个适用于 openClaw Agent 的官方技能说明文件（Skill Metadata）。通过此技能，Agent 可以自动化搜索三大内容平台的数据并获取其详细内容。
 
 ## ⚠️ 重要执行原则 (CRITICAL INSTRUCTION)
 
@@ -39,3 +39,5 @@ description: 多平台内容聚合抓取工具（支持 YouTube、Bilibili、小
 1. 涉及文件输出时，务必使用明确的相对或绝对路径，保证自己能读取到。
 2. 配置参数通过 `content-hub.exe config set <KEY> <VALUE>` 自动设置。如果没有指定 API Key 或 Cookie，仍然可以探索受限的基础能力。
 3. 请始终遵循直接拉起 `exe` 执行文件这一首要原则，享受无依赖毫秒级启动的红利。
+4. 获取到搜索信息后，你可以观察内容列表，选择其中更受欢迎的10%的内容进行抓取。
+5. 使用搜索与发现列表中的URL即可进行抓取，工具抓取的结果的最后一行是字幕文件所在地址，使用字幕内容来参与大模型的内容生成
