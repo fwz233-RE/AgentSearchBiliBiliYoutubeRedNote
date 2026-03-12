@@ -99,13 +99,13 @@ dist\content-hub.exe --help
 
 ```bash
 # 搜索 YouTube
-content-hub search youtube "Python 教程"
+content-hub search youtube Python 教程
 
 # 搜索 Bilibili
-content-hub search bilibili "机器学习" --page 2
+content-hub search bilibili 机器学习 --page 2
 
-# 搜索小红书
-content-hub search xiaohongshu "旅行攻略" --page-size 10
+# 搜索小红书 (注意: 不要给关键词加引号)
+content-hub search xiaohongshu 旅行攻略 --page-size 10
 ```
 
 ### 抓取内容

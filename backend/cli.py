@@ -722,8 +722,8 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
-  content-hub search youtube "Python 教程"
-  content-hub search bilibili "机器学习" --page 2
+  content-hub search youtube Python 教程
+  content-hub search bilibili 机器学习 --page 2
   content-hub scrape https://www.youtube.com/watch?v=xxx
   content-hub scrape --file urls.txt
   content-hub list --platform youtube

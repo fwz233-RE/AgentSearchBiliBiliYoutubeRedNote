@@ -101,7 +101,7 @@ def build():
         print(f"   大小: {size_mb:.1f} MB")
         print(f"\n🚀 使用方法:")
         print(f"   {output} --help")
-        print(f"   {output} search youtube \"Python 教程\"")
+        print(f"   {output} search youtube Python 教程")
         print(f"   {output} scrape https://www.youtube.com/watch?v=xxx")
     else:
         print(f"\n❌ 未找到输出文件: {output}")

@@ -23,10 +23,10 @@ description: 多平台内容聚合抓取工具（支持 YouTube、Bilibili、小
 你可以使用该 CLI 工具完成以下任务，请使用前文约定的工具路径（以下简写为 `content-hub.exe` 作为示例）：
 
 ### 1. 搜索与发现 (Search)
-按关键词跨平台搜索内容：
-*   `content-hub.exe search youtube "<关键词>"`
-*   `content-hub.exe search bilibili "<关键词>" --page 2`
-*   `content-hub.exe search xiaohongshu "<关键词>" --page-size 10`
+按关键词跨平台搜索内容（**注意：搜索多词关键词时，直接输入即可，请不要加双引号或单引号，工具会自动识别**）：
+*   `content-hub.exe search youtube <关键词>`  (例如: `content-hub.exe search youtube MacBook Neo`)
+*   `content-hub.exe search bilibili <关键词> --page 2`
+*   `content-hub.exe search xiaohongshu <关键词> --page-size 10`
 
 ### 2. 内容抓取 (Scrape)
 获取指定 URL 的元数据（并自动分析字幕/打标）：
